@@ -1,22 +1,32 @@
-import logo from './logo.svg';
 import './App.css';
+import React, { useState } from 'react';
 
 function App() {
+
+  const [option, setOption] = useState(0);
+
+  const handleSubmit = (e) => {
+    e.preventDefault(); // Prevents page from doing a refresh
+    console.log(option);
+
+    //Get stitched image
+    // if(option == 1){
+
+    // }
+  }
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+
+        <form onSubmit={handleSubmit}>
+          <label>
+            Please enter option:
+            <input id="number" type="number" value={option} onChange={(e) => setOption(e.target.value)} />
+          </label>
+          <input type="submit" value="Submit" />
+        </form>
+
       </header>
     </div>
   );
