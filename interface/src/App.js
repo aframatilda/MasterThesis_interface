@@ -1,12 +1,15 @@
 import './App.css';
 import React, { useState, Component } from 'react';
-import axios from "axios";
 
 class App extends Component{
 
     constructor(props){
         super(props);
         this.state = { apiResponse: "" };
+        this.state = { option: 0 };
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     callAPI() {
@@ -18,25 +21,36 @@ class App extends Component{
     componentWillMount() {
         this.callAPI();
     }
+    
+    handleChange(e) {
+        this.setState({ option: e.target.value });
+    }
 
-    handleSubmit = (e) => {
-        e.preventDefault(); // Prevents page from doing a refresh
-        console.log(option);
+    handleSubmit(e) {
+        console.log(this.state.option);
+        fetch('https://localhost:9000/testAPI', {
+            method: 'POST', // or 'PUT'
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(this.state.option),
+        })
+
+        e.preventDefault();
     }
 
     render() {
         return (
             <div className="App">
                 <header className="App-header">
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={this.handleSubmit}>
                         <label>
                             Please enter option:
-                            <input id="number" type="number" value={option} onChange={(e) => setOption(e.target.value)} />
+                            <input id="number" type="number" value={this.state.option} onChange={this.handleChange} />
                         </label>
                         <input type="submit" value="Submit" />
                     </form>
-
-                    <h1>{apiResponse}</h1>
+                    <p> {this.state.apiResponse}</p>
                     <ol>
                         <li> Take photo </li>
                         <li> Get file list (video and photo) </li>
