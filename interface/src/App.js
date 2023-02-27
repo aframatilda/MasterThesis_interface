@@ -21,7 +21,8 @@ function App() {
             .then(JSON.parse(option)) // It parses the output
             .catch(function (error) {
                 console.log("error---", error)
-            });
+            })
+            .then(setOption([]))
     }
 
     return (
