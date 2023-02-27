@@ -1,61 +1,59 @@
-import './App.css';
-import React, { useState, Component } from 'react';
-import axios from "axios";
+import React, { Component } from 'react';
+import axios from 'axios';
 
-class App extends Component{
-
-    constructor(props){
+class Create extends Component {
+    constructor(props) {
         super(props);
-        this.state = { apiResponse: "" };
+
+        this.state = {
+            optionID: '',
+        };
     }
 
-    callAPI() {
-        fetch("http://localhost:9000/testAPI")
-            .then(res => res.text())
-            .then(res => this.setState({ apiResponse: res }));
-    }
+    handleInputChange = e => {
+        this.setState({
+            [e.target.name]: e.target.value,
+        });
+    };
 
-    componentWillMount() {
-        this.callAPI();
-    }
+    handleSubmit = e => {
+        e.preventDefault();
+        const optionID = this.state;
+        const book = optionID;
 
-    handleSubmit = (e) => {
-        e.preventDefault(); // Prevents page from doing a refresh
-        console.log(option);
-    }
+        axios
+            .post('http://localhost:3001', book)
+            .then(() => console.log('Option Registred'))
+            .catch(err => {
+                console.error(err);
+            });
+    };
 
     render() {
         return (
-            <div className="App">
-                <header className="App-header">
-                    <form onSubmit={handleSubmit}>
-                        <label>
-                            Please enter option:
-                            <input id="number" type="number" value={option} onChange={(e) => setOption(e.target.value)} />
-                        </label>
-                        <input type="submit" value="Submit" />
+            <div>
+                <br />
+                <div className="container">
+                    <form onSubmit={this.handleSubmit}>
+                        <div style={{ width: '30%' }} className="form-group">
+                            <input
+                                type="text"
+                                className="form-control"
+                                name="optionID"
+                                placeholder="Option"
+                                onChange={this.handleInputChange}
+                            />
+                        </div>
+                        <div style={{ width: '30%' }}>
+                            <button className="btn btn-success" type="submit">
+                                Send
+                            </button>
+                        </div>
                     </form>
-
-                    <h1>{apiResponse}</h1>
-                    <ol>
-                        <li> Take photo </li>
-                        <li> Get file list (video and photo) </li>
-                        <li> Delete file </li>
-                        <li> Download file </li>
-                        <li> Set exposure settings </li>
-                        <li> Set capture settings </li>
-                        <li> Take photo and download </li>
-                        <li> Stitch image and download </li>
-                        <li> Get current capture status </li>
-                        <li> Start timelapse  </li>
-                        <li> Stop timelapse  </li>
-                        <li> Get battery status  </li>
-                        <li> Get storage info  </li>
-                    </ol>
-                </header>
+                </div>
             </div>
         );
     }
 }
 
-export default App;
+export default Create;
