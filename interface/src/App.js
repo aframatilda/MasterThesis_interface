@@ -1,59 +1,66 @@
-import React, { Component } from 'react';
-import axios from 'axios';
+import './App.css';
+import React, { useState } from "react";
 
-class Create extends Component {
-    constructor(props) {
-        super(props);
+function App() {
 
-        this.state = {
-            optionID: '',
-        };
-    }
+    const [option, setOption] = useState([]);
 
-    handleInputChange = e => {
-        this.setState({
-            [e.target.name]: e.target.value,
-        });
-    };
-
-    handleSubmit = e => {
+    const handleSubmit = (e) => {
         e.preventDefault();
-        const optionID = this.state;
-        const book = optionID;
-
-        axios
-            .post('http://localhost:3001', book)
-            .then(() => console.log('Option Registred'))
-            .catch(err => {
-                console.error(err);
-            });
-    };
-
-    render() {
-        return (
-            <div>
-                <br />
-                <div className="container">
-                    <form onSubmit={this.handleSubmit}>
-                        <div style={{ width: '30%' }} className="form-group">
-                            <input
-                                type="text"
-                                className="form-control"
-                                name="optionID"
-                                placeholder="Option"
-                                onChange={this.handleInputChange}
-                            />
-                        </div>
-                        <div style={{ width: '30%' }}>
-                            <button className="btn btn-success" type="submit">
-                                Send
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        );
+        fetch("http://localhost:9000/testAPI", {
+            method: 'post',
+            body: JSON.stringify({
+                option: option
+            }),
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(JSON.parse(option)) // It parses the output
+            .catch(function (error) {
+                console.log("error---", error)
+            })
+            .then(setOption([]))
     }
+
+
+    router.get('/' res => {
+        var actions = parse_response(res)
+        for action in actions {
+            exec("./camera_app $action outputfile", (error, stdout, stderr) =>
+            { router.post("server.com/api/send_image/cameraid", outputfile) }  }
+
+
+
+    return (
+        <div className="App">
+            <header className="App-header">
+                <form onSubmit={handleSubmit}>
+                    <label>
+                        Please enter option:
+                        <input id="number" type="number" value={option} name="option" onChange={(e) => setOption(e.target.value)} />
+                    </label>
+                    <input type="submit" value="Submit" />
+                </form>
+                <ol>
+                    <li> Take photo </li>
+                    <li> Get file list (video and photo) </li>
+                    <li> Delete file </li>
+                    <li> Download file </li>
+                    <li> Set exposure settings </li>
+                    <li> Set capture settings </li>
+                    <li> Take photo and download </li>
+                    <li> Stitch image and download </li>
+                    <li> Get current capture status </li>
+                    <li> Start timelapse  </li>
+                    <li> Stop timelapse  </li>
+                    <li> Get battery status  </li>
+                    <li> Get storage info  </li>
+                </ol>
+            </header>
+        </div>
+    );
 }
 
-export default Create;
+export default App;
