@@ -2,10 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\backend",
-    "\\backend\\routes",
     "\\interface",
+    "\\interface\\public",
     "\\interface\\src"
   ],
-  "SelectedNode": "\\interface\\package.json",
+  "SelectedNode": "\\backend",
   "PreviewInSolutionExplorer": false
 }

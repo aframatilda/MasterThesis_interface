@@ -2,7 +2,6 @@ var express = require("express");
 var router = express.Router();
 //import {execFile,exec, parse_response} from ('child_process');
 
-
 const options = [];
 
 router.post('/', (req, res) => {
